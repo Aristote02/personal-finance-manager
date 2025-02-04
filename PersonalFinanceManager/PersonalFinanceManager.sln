@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0805917A-7CCF-459F-96C5-023231C3C7BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinanceManager.API", "PersonalFinanceManager.API\PersonalFinanceManager.API.csproj", "{7108C923-322A-4293-96F3-A992BF6D7A82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinanceManager.Application", "PersonalFinanceManager.Application\PersonalFinanceManager.Application.csproj", "{203D07DF-F6C5-4257-BA5F-CE004A6B60F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinanceManager.Domain", "PersonalFinanceManager.Domain\PersonalFinanceManager.Domain.csproj", "{CE718E6B-3769-4F8A-84C5-C9D2A7D27C94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinanceManager.Application.Contracts", "PersonalFinanceManager.Application.Contracts\PersonalFinanceManager.Application.Contracts.csproj", "{16AE1A62-5CD9-4CCE-BD2E-A37215A86E97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinanceManager.Infrastructure.Contracts", "PersonalFinanceManager.Infrastructure.Contracts\PersonalFinanceManager.Infrastructure.Contracts.csproj", "{BE1C67F7-7F3C-440E-BF13-CC6D34F45C39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinanceManager.Infrastructure", "PersonalFinanceManager.Infrastructure\PersonalFinanceManager.Infrastructure.csproj", "{8D452526-3CAF-454C-964B-04BB3B224107}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinanceManager.Presentation", "PersonalFinanceManager.Presentation\PersonalFinanceManager.Presentation.csproj", "{C66594AE-4295-467D-B1FA-718B7B766226}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinanceManager.Shared", "PersonalFinanceManager.Shared\PersonalFinanceManager.Shared.csproj", "{4C5D4F63-351A-481C-9B99-B3B710666725}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B1F18C5F-6EB8-49A0-A87A-D2AB43B04C84}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7108C923-322A-4293-96F3-A992BF6D7A82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7108C923-322A-4293-96F3-A992BF6D7A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7108C923-322A-4293-96F3-A992BF6D7A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7108C923-322A-4293-96F3-A992BF6D7A82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{203D07DF-F6C5-4257-BA5F-CE004A6B60F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{203D07DF-F6C5-4257-BA5F-CE004A6B60F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{203D07DF-F6C5-4257-BA5F-CE004A6B60F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{203D07DF-F6C5-4257-BA5F-CE004A6B60F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE718E6B-3769-4F8A-84C5-C9D2A7D27C94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE718E6B-3769-4F8A-84C5-C9D2A7D27C94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE718E6B-3769-4F8A-84C5-C9D2A7D27C94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE718E6B-3769-4F8A-84C5-C9D2A7D27C94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16AE1A62-5CD9-4CCE-BD2E-A37215A86E97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16AE1A62-5CD9-4CCE-BD2E-A37215A86E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16AE1A62-5CD9-4CCE-BD2E-A37215A86E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16AE1A62-5CD9-4CCE-BD2E-A37215A86E97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE1C67F7-7F3C-440E-BF13-CC6D34F45C39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE1C67F7-7F3C-440E-BF13-CC6D34F45C39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE1C67F7-7F3C-440E-BF13-CC6D34F45C39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE1C67F7-7F3C-440E-BF13-CC6D34F45C39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D452526-3CAF-454C-964B-04BB3B224107}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D452526-3CAF-454C-964B-04BB3B224107}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D452526-3CAF-454C-964B-04BB3B224107}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D452526-3CAF-454C-964B-04BB3B224107}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C66594AE-4295-467D-B1FA-718B7B766226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C66594AE-4295-467D-B1FA-718B7B766226}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C66594AE-4295-467D-B1FA-718B7B766226}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C66594AE-4295-467D-B1FA-718B7B766226}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C5D4F63-351A-481C-9B99-B3B710666725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C5D4F63-351A-481C-9B99-B3B710666725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C5D4F63-351A-481C-9B99-B3B710666725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C5D4F63-351A-481C-9B99-B3B710666725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1F18C5F-6EB8-49A0-A87A-D2AB43B04C84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1F18C5F-6EB8-49A0-A87A-D2AB43B04C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1F18C5F-6EB8-49A0-A87A-D2AB43B04C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1F18C5F-6EB8-49A0-A87A-D2AB43B04C84}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7108C923-322A-4293-96F3-A992BF6D7A82} = {0805917A-7CCF-459F-96C5-023231C3C7BD}
+		{203D07DF-F6C5-4257-BA5F-CE004A6B60F8} = {0805917A-7CCF-459F-96C5-023231C3C7BD}
+		{CE718E6B-3769-4F8A-84C5-C9D2A7D27C94} = {0805917A-7CCF-459F-96C5-023231C3C7BD}
+		{16AE1A62-5CD9-4CCE-BD2E-A37215A86E97} = {0805917A-7CCF-459F-96C5-023231C3C7BD}
+		{BE1C67F7-7F3C-440E-BF13-CC6D34F45C39} = {0805917A-7CCF-459F-96C5-023231C3C7BD}
+		{8D452526-3CAF-454C-964B-04BB3B224107} = {0805917A-7CCF-459F-96C5-023231C3C7BD}
+		{C66594AE-4295-467D-B1FA-718B7B766226} = {0805917A-7CCF-459F-96C5-023231C3C7BD}
+		{4C5D4F63-351A-481C-9B99-B3B710666725} = {0805917A-7CCF-459F-96C5-023231C3C7BD}
+	EndGlobalSection
+EndGlobal

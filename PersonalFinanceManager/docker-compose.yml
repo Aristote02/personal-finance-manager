@@ -1,0 +1,36 @@
+services:
+  personalfinancemanager.api:
+    image: ${DOCKER_REGISTRY-}personalfinancemanagerapi
+    build:
+      context: .
+      dockerfile: PersonalFinanceManager.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - sql_server
+    networks:
+      - personal_finance_network
+    restart: on-failure
+
+  sql_server:
+    container_name: sql_server
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    ports:
+      - "1433:1433" 
+    environment:
+      - SA_PASSWORD=Aristote_dilomba12
+      - ACCEPT_EULA=Y
+    volumes:
+      - "sql_data:/var/opt/mssql"
+    networks:
+      - personal_finance_network
+    restart: on-failure
+
+volumes:
+  sql_data:
+
+networks:
+  personal_finance_network:
+    external: true
+    name: personal_finance_network
+    driver: bridge
