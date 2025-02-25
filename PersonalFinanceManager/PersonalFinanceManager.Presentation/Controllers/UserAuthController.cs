@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonalFinanceManager.Application.Features.Users.Commands.CreateUser;
+using PersonalFinanceManager.Application.Features.Users.Commands.GoogleSignIn;
 using PersonalFinanceManager.Application.Features.Users.Commands.RefreshToken;
 using PersonalFinanceManager.Application.Features.Users.Commands.SignIn;
 using PersonalFinanceManager.Application.Features.Users.Commands.SignOut;
@@ -51,6 +52,28 @@ public class UserAuthController : ControllerBase
         }
 
         return CreatedAtAction(nameof(SignIn), tokenDto);
+    }
+
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [HttpPost("google-signin")]
+    public async Task<IActionResult> GoogleSignIn([FromBody] GoogleSignInRequest request)
+    {
+        var tokenDto = await _sender.Send(new GoogleSignInCommand(request));
+        if (!string.IsNullOrEmpty(tokenDto.RefreshToken))
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTime.UtcNow.AddDays(7),
+            };
+
+            Response.Cookies.Append("refreshToken", tokenDto.RefreshToken, cookieOptions);
+        }
+
+        return CreatedAtAction(nameof(GoogleSignIn), tokenDto);
     }
 
     /// <summary>

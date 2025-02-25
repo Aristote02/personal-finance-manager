@@ -11,6 +11,7 @@ public class UserSignInCommandHandler : IRequestHandler<UserSignInCommand, Token
     {
         _userService = userService;
     }
+
     public async Task<TokenDto> Handle(UserSignInCommand request, CancellationToken cancellationToken)
     {
         await _userService.ValidateRequest(request, cancellationToken);

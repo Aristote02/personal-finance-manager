@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PersonalFinanceManager.Application;
@@ -163,7 +165,7 @@ public static partial class ApplicationDependenciesConfiguration
         builder.Services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
         })
             .AddJwtBearer(options =>
             {
@@ -182,6 +184,27 @@ public static partial class ApplicationDependenciesConfiguration
         return builder.Services;
     }
 
+    public static IServiceCollection ConfigureGoogleAuthentication(this WebApplicationBuilder builder)
+    {
+        var googleSection = builder.Configuration.GetSection("GoogleAuth");
+        if (!googleSection.Exists() || !ValidateGoogleSettings(googleSection))
+        {
+            throw new InvalidOperationException("Google Configuration values are missing or invalid");
+        }
+
+        builder.Services.Configure<GoogleSettings>(googleSection);
+        builder.Services.AddAuthentication()
+            .AddGoogle(options =>
+            {
+                var googleSettings = builder.Services.BuildServiceProvider().GetRequiredService<IOptions<GoogleSettings>>().Value;
+                options.ClientId = googleSettings.ClientId;
+                options.ClientSecret = googleSettings.ClientSecret;
+                options.SaveTokens = true;
+            });
+
+        return builder.Services;
+    }
+
     /// <summary>
 	/// Method to validate jwt
 	/// </summary>
@@ -192,5 +215,11 @@ public static partial class ApplicationDependenciesConfiguration
         return !string.IsNullOrEmpty(jwtSection["Issuer"]) &&
                !string.IsNullOrEmpty(jwtSection["Audience"]) &&
                !string.IsNullOrEmpty(jwtSection["Key"]);
+    }
+
+    private static bool ValidateGoogleSettings(IConfigurationSection googleSection)
+    {
+        return !string.IsNullOrEmpty(googleSection["ClientId"]) &&
+               !string.IsNullOrEmpty(googleSection["CliendSecret"]);
     }
 }

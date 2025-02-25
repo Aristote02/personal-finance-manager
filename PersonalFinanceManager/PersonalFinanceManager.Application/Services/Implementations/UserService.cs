@@ -227,4 +227,19 @@ public class UserService : IUserService
         await _userManager.UpdateAsync(user);
         _logger.LogInformation("RefreshTokens revoked for user with id {UserId}", userId);
     }
+
+    public async Task EnsureUserExistsAsync(AppUser user)
+    {
+        var existingUser = await _userManager.FindByEmailAsync(user.Email);
+
+        if (existingUser is not null)
+            return;
+        
+        var createResult = await _userManager.CreateAsync(user);
+        if(!createResult.Succeeded)
+        {
+            _logger.LogError("Failed to create user: {Errors}", createResult.Errors);
+            throw new InvalidOperationException("Failed to create user");
+        }
+    }
 }
