@@ -51,7 +51,7 @@ public interface IUserService
     /// <returns>A task representing the asynchronous operation</returns>
     Task EnsureEmailConfirmed(AppUser user);
 
-    Task EnsureUserExistsAsync(AppUser user);
+    Task<AppUser> EnsureUserExistsAsync(AppUser user);
 
     /// <summary>
     /// validates a given request

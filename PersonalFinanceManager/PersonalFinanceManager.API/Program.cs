@@ -29,11 +29,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
 
 var scope = app.Services.CreateScope();
 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 await app.UseMigration(logger);
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PersonalFinanceManager.Application.Contracts.Services.Interfaces;
 using PersonalFinanceManager.Application.Features.Users.Commands.SignIn;
+using PersonalFinanceManager.Application.Helpers;
 using PersonalFinanceManager.Domain.Entities;
 using PersonalFinanceManager.Domain.Exceptions;
 using PersonalFinanceManager.Domain.Models;
@@ -228,18 +229,47 @@ public class UserService : IUserService
         _logger.LogInformation("RefreshTokens revoked for user with id {UserId}", userId);
     }
 
-    public async Task EnsureUserExistsAsync(AppUser user)
+    public async Task<AppUser> EnsureUserExistsAsync(AppUser user)
     {
+        if (user.Email is null)
+            throw new ArgumentNullException(nameof(user.Email), "User email cannot be null");
+
         var existingUser = await _userManager.FindByEmailAsync(user.Email);
 
         if (existingUser is not null)
-            return;
-        
-        var createResult = await _userManager.CreateAsync(user);
-        if(!createResult.Succeeded)
+            return existingUser;
+
+        // Generate a valid dummy password for external logins
+        var dummyPassword = GenerateValidDummyPassword();
+
+        var createUserResult = await _userManager.CreateAsync(user, dummyPassword);
+        createUserResult.ThrowExceptionIfResultDoNotSucceed(_logger);
+
+        return user;
+    }
+
+    private static string GenerateValidDummyPassword()
+    {
+        const string uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const string digitChars = "0123456789";
+        const string nonAlphanumericChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+
+        var random = new Random();
+        var password = new StringBuilder();
+
+        password.Append(uppercaseChars[random.Next(uppercaseChars.Length)]);
+        password.Append(digitChars[random.Next(digitChars.Length)]);
+        password.Append(nonAlphanumericChars[random.Next(nonAlphanumericChars.Length)]);
+
+        // Fill the rest of the password with random characters
+        const int totalLength = 12;
+        const string allChars = uppercaseChars + digitChars + nonAlphanumericChars;
+        for (int i = password.Length; i < totalLength; i++)
         {
-            _logger.LogError("Failed to create user: {Errors}", createResult.Errors);
-            throw new InvalidOperationException("Failed to create user");
+            password.Append(allChars[random.Next(allChars.Length)]);
         }
+
+        // Shuffle the password to ensure randomness
+        return new string(password.ToString().OrderBy(c => random.Next()).ToArray());
     }
 }
