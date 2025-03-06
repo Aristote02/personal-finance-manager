@@ -1,11 +1,14 @@
 ﻿namespace PersonalFinanceManager.Domain.Entities;
 
-public class Income
+public class Income : BaseEntity
 {
-    public Guid IncomeId { get; set; }
-    public required string Source { get; set; }
-    public decimal Amount { get; set; }
-    public DateTime Date { get; set; }
-    public Guid UserId { get; set; }
-    public AppUser User { get; set; }
+    public required string Source { get; init; }
+
+    public decimal Amount { get; init; }
+
+    public DateTime Date { get; init; }
+
+    public Guid UserId { get; init; }
+
+    public required AppUser User { get; init; }
 }

@@ -1,9 +1,7 @@
 ﻿namespace PersonalFinanceManager.Domain.Entities;
 
-public class RefreshToken
+public class RefreshToken : BaseEntity
 {
-    public Guid Id { get; set; }
-
     public required string Token { get; set; }
 
     public Guid UserId { get; set; }
