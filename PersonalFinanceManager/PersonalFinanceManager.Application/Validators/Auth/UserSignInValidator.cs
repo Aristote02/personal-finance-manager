@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using PersonalFinanceManager.Application.Features.Users.Commands.SignIn;
 
-namespace PersonalFinanceManager.Application.Validators;
+namespace PersonalFinanceManager.Application.Validators.Auth;
 
 /// <summary>
 /// Validator class for validating user sign in requests

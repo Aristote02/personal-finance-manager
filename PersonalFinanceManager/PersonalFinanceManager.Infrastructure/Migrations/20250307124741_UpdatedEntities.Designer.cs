@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalFinanceManager.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using PersonalFinanceManager.Infrastructure.Data;
 namespace PersonalFinanceManager.Infrastructure.Migrations
 {
     [DbContext(typeof(PersonalFinanceDbContext))]
-    partial class PersonalFinanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250307124741_UpdatedEntities")]
+    partial class UpdatedEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

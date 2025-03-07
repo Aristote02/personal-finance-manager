@@ -8,7 +8,7 @@ public class SavingsGoalConfiguration : IEntityTypeConfiguration<SavingsGoal>
 {
     public void Configure(EntityTypeBuilder<SavingsGoal> builder)
     {
-        builder.HasKey(s => s.SavingsGoalId);
+        builder.HasKey(s => s.Id);
         builder.Property(s => s.GoalName).IsRequired();
         builder.Property(s => s.TargetAmount).HasColumnType("decimal(18,2)");
         builder.Property(s => s.CurrentAmount).HasColumnType("decimal(18,2)");

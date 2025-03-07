@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using PersonalFinanceManager.Application.Features.Users.Commands.CreateUser;
 
-namespace PersonalFinanceManager.Application.Validators;
+namespace PersonalFinanceManager.Application.Validators.Auth;
 
 public class UserRegisterRequestValidator : AbstractValidator<CreateUserCommand>
 {

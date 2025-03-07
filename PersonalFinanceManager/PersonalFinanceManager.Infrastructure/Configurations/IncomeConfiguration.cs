@@ -8,7 +8,7 @@ public class IncomeConfiguration : IEntityTypeConfiguration<Income>
 {
     public void Configure(EntityTypeBuilder<Income> builder)
     {
-        builder.HasKey(i => i.IncomeId);
+        builder.HasKey(i => i.Id);
         builder.Property(i => i.Source).IsRequired();
         builder.Property(x => x.Amount).HasColumnType("decimal(18,2)");
         builder.Property(x => x.Date).IsRequired();

@@ -64,7 +64,9 @@ public static partial class ApplicationDependenciesConfiguration
 	public static IServiceCollection AddServices(this IServiceCollection services)
     {
         services
-            .AddScoped<IUserService, UserService>();
+            .AddScoped<IUserService, UserService>()
+            .AddScoped<IIncomeService, IncomeService>()
+            .AddScoped<IServiceManager, ServiceManager>();
 
         return services;
     }
@@ -149,12 +151,13 @@ public static partial class ApplicationDependenciesConfiguration
     }
 
     /// <summary>
-    /// Configure JWT authentication
+    /// Configure authentication
     /// </summary>
     /// <param name="builder">The WebApplicationBuilder</param>
     /// <exception cref="InvalidOperationException"></exception>
-    public static IServiceCollection ConfigureJwtAuthentication(this WebApplicationBuilder builder)
+    public static IServiceCollection ConfigureAuthentication(this WebApplicationBuilder builder)
     {
+        // Configure JWT
         var jwtSection = builder.Configuration.GetSection("Jwt");
         if (!jwtSection.Exists() || !ValidateJwtSettings(jwtSection))
         {
@@ -162,10 +165,21 @@ public static partial class ApplicationDependenciesConfiguration
         }
 
         builder.Services.Configure<JwtSettings>(jwtSection);
+
+        // Configure Google
+        var googleSection = builder.Configuration.GetSection("GoogleAuth");
+        if (!googleSection.Exists() || !ValidateGoogleSettings(googleSection))
+        {
+            throw new InvalidOperationException("Google Configuration values are missing or invalid");
+        }
+
+        builder.Services.Configure<GoogleSettings>(googleSection);
+
+        // Add authentication schemes
         builder.Services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         })
             .AddJwtBearer(options =>
             {
@@ -179,21 +193,7 @@ public static partial class ApplicationDependenciesConfiguration
                     ValidAudience = jwtSection["Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection["Key"]!))
                 };
-            });
-
-        return builder.Services;
-    }
-
-    public static IServiceCollection ConfigureGoogleAuthentication(this WebApplicationBuilder builder)
-    {
-        var googleSection = builder.Configuration.GetSection("GoogleAuth");
-        if (!googleSection.Exists() || !ValidateGoogleSettings(googleSection))
-        {
-            throw new InvalidOperationException("Google Configuration values are missing or invalid");
-        }
-
-        builder.Services.Configure<GoogleSettings>(googleSection);
-        builder.Services.AddAuthentication()
+            })
             .AddGoogle(options =>
             {
                 var googleSettings = builder.Services.BuildServiceProvider().GetRequiredService<IOptions<GoogleSettings>>().Value;
@@ -201,6 +201,22 @@ public static partial class ApplicationDependenciesConfiguration
                 options.ClientSecret = googleSettings.ClientSecret;
                 options.SaveTokens = true;
             });
+
+        return builder.Services;
+    }
+
+    public static IServiceCollection ConfigureAuthorization(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("JwtOrGoogle", policy =>
+            {
+                policy.AddAuthenticationSchemes(
+                    JwtBearerDefaults.AuthenticationScheme,
+                    GoogleDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser();
+            });
+        });
 
         return builder.Services;
     }

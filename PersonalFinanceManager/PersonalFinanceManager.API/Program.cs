@@ -1,4 +1,5 @@
 using PersonalFinanceManager.API.Extensions;
+using PersonalFinanceManager.API.Middlewares;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,11 +12,16 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.ConfigureCrossOriginRessourceSharing();
 builder.ConfigureDatabase();
-builder.ConfigureJwtAuthentication();
+builder.ConfigureAuthentication();
+builder.ConfigureAuthorization();
 builder.ConfigureServices()
     .ConfigureSwaggerGen();
 
 var app = builder.Build();
+
+var scope = app.Services.CreateScope();
+var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+await app.UseMigration(logger);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -31,9 +37,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors();
 
-var scope = app.Services.CreateScope();
-var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-await app.UseMigration(logger);
+app.UseExceptionMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();

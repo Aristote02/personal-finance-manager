@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PersonalFinanceManager.Domain.Entities;
+using PersonalFinanceManager.Infrastructure.Contracts.Repositories.Interfaces;
 using PersonalFinanceManager.Infrastructure.Data;
+using PersonalFinanceManager.Infrastructure.Repositories.Implementations;
 using PersonalFinanceManager.Infrastructure.SeedData;
 using Serilog;
 
@@ -54,7 +56,9 @@ public static class ApplicationDependenciesConfiguration
         services
             .AddScoped<SeedRoles>()
             .AddScoped<SeedAdmin>()
-            .AddScoped<SeedManagerUser>();
+            .AddScoped<SeedManagerUser>()
+            .AddScoped<IIncomeRepository, IncomeRepository>()
+            .AddScoped<IRepositoryManager, RepositoryManager>();
 
         return services;
     }

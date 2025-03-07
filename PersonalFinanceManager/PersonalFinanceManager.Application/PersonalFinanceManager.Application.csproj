@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PersonalFinanceManager.Application.Contracts\PersonalFinanceManager.Application.Contracts.csproj" />
     <ProjectReference Include="..\PersonalFinanceManager.Domain\PersonalFinanceManager.Domain.csproj" />
+    <ProjectReference Include="..\PersonalFinanceManager.Infrastructure.Contracts\PersonalFinanceManager.Infrastructure.Contracts.csproj" />
     <ProjectReference Include="..\PersonalFinanceManager.Shared\PersonalFinanceManager.Shared.csproj" />
   </ItemGroup>
 

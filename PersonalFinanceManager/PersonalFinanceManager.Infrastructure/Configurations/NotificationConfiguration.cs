@@ -8,13 +8,13 @@ public class NotificationConfiguration : IEntityTypeConfiguration<Notification>
 {
     public void Configure(EntityTypeBuilder<Notification> builder)
     {
-        builder.HasKey(n => n.NotificationId);
+        builder.HasKey(n => n.Id);
         builder.Property(n => n.Message).HasMaxLength(1000);
         builder.Property(n => n.Date).IsRequired();
 
         builder.HasOne(n => n.User)
             .WithMany(u => u.Notifications)
-            .HasForeignKey(n => n.NotificationId);
+            .HasForeignKey(n => n.Id);
         builder.ToTable("Notifications");
     }
 }

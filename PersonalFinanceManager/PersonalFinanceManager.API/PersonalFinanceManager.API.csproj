@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Middlewares\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PersonalFinanceManager.Application\PersonalFinanceManager.Application.csproj" />
     <ProjectReference Include="..\PersonalFinanceManager.Infrastructure\PersonalFinanceManager.Infrastructure.csproj" />
     <ProjectReference Include="..\PersonalFinanceManager.Presentation\PersonalFinanceManager.Presentation.csproj" />

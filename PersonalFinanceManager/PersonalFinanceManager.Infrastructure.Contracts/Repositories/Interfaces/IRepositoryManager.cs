@@ -3,4 +3,6 @@
 public interface IRepositoryManager
 {
     IIncomeRepository IncomeRepository { get; }
+
+    Task SaveAsync();
 }
