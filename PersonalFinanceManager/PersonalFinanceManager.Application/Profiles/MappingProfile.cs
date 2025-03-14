@@ -18,6 +18,9 @@ public class MappingProfile : Profile
             .ReverseMap();
         CreateMap<IncomeUpdateRequest, Income>();
         CreateMap<Income, IncomeResponseDto>();
-        CreateMap<PagedList<Income>, IncomeResponseDto>();
+        CreateMap<PagedList<Income>, IncomesResponse>()
+            .ForMember(dest => dest.MetaData, opt => opt.MapFrom(src => src.MetaData))
+            .ConstructUsing((src, context) => new IncomesResponse(src.Select(income =>
+                context.Mapper.Map<IncomeResponseDto>(income)).ToList(), src.MetaData));
     }
 }

@@ -21,7 +21,7 @@ public class IncomesController : ControllerBase
         _serviceManager = serviceManager;
     }
 
-    [HttpPost]
+    [HttpPost("income")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -35,7 +35,7 @@ public class IncomesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetIncomeById(Guid id)
+    public async Task<IActionResult> GetIncomeById([FromRoute] Guid id)
     {
         var result = await _serviceManager.IncomeService.GetIncomeByIdAsync(id, trackChanges: false);
         return Ok(result);
@@ -65,7 +65,7 @@ public class IncomesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> DeleteIncome(Guid id)
+    public async Task<IActionResult> DeleteIncome([FromRoute] Guid id)
     {
         await _serviceManager.IncomeService.DeleteIncomeAsync(id, trackChanges: false);
         return NoContent();

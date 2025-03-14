@@ -46,13 +46,12 @@ public static partial class ApplicationDependenciesConfiguration
     {
         builder.Services.AddCors(options =>
         {
-            options.AddDefaultPolicy(
-                policy =>
-                {
-                    policy.WithOrigins("*")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
-                });
+            options.AddDefaultPolicy(policy =>
+            {
+                policy.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+            });
         });
     }
 
@@ -236,6 +235,6 @@ public static partial class ApplicationDependenciesConfiguration
     private static bool ValidateGoogleSettings(IConfigurationSection googleSection)
     {
         return !string.IsNullOrEmpty(googleSection["ClientId"]) &&
-               !string.IsNullOrEmpty(googleSection["CliendSecret"]);
+               !string.IsNullOrEmpty(googleSection["ClientSecret"]);
     }
 }
