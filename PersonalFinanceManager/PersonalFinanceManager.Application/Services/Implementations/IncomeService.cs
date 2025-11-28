@@ -49,8 +49,8 @@ public sealed class IncomeService : IIncomeService
 
     public async Task<IncomesResponse> GetAllIncomesAsync(IncomeParameters incomeParameters, bool trackChanges)
     {
-        var doctors = await _repositoryManager.IncomeRepository.GetAllIncomesAsync(incomeParameters, trackChanges);
-        return _mapper.Map<IncomesResponse>(doctors);
+        var incomes = await _repositoryManager.IncomeRepository.GetAllIncomesAsync(incomeParameters, trackChanges);
+        return _mapper.Map<IncomesResponse>(incomes);
     }
 
     public async Task UpdateIncomeAsync(IncomeUpdateRequest incomeUpdateRequest, bool trackChanges)
@@ -71,12 +71,9 @@ public sealed class IncomeService : IIncomeService
     private async Task<Income> GetIncomeOrThrowIfNotFound(Guid id, bool trackChanges)
     {
         var income = await _repositoryManager.IncomeRepository.GetIncomeByIdAsync(id, trackChanges);
-        if (income is null)
-        {
-            _logger.LogError("Income with id {Id} was not found", id);
-            throw new NotFoundException($"Income with id {id} was not found");
-        }
-        return income;
+        if (income is not null) return income;
+        _logger.LogError("Income with id {Id} was not found", id);
+        throw new NotFoundException($"Income with id {id} was not found");
     }
 
     private async Task ValidateIncomeRequest<T>(T request, IValidator<T> validator)

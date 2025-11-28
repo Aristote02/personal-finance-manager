@@ -4,10 +4,10 @@ namespace PersonalFinanceManager.Domain.Entities;
 
 public class AppUser : IdentityUser<Guid>
 {
-    public ICollection<Expense> Expenses { get; set; } = []!;
-    public ICollection<Income> Incomes { get; set; } = []!;
-    public ICollection<SavingsGoal> SavingsGoals { get; set; } = []!;
-    public ICollection<Budget> Budgets { get; set; } = []!;
-    public ICollection<Notification> Notifications { get; set; } = []!;
-    public ICollection<RefreshToken> RefreshTokens { get; set; } = []!;
+    public ICollection<Expense> Expenses { get; init; } = []!;
+    public ICollection<Income> Incomes { get; init; } = []!;
+    public ICollection<SavingsGoal> SavingsGoals { get; init; } = []!;
+    public ICollection<Budget> Budgets { get; init; } = []!;
+    public ICollection<Notification> Notifications { get; init; } = []!;
+    public ICollection<RefreshToken> RefreshTokens { get; init; } = []!;
 }
